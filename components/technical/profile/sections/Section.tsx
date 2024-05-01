@@ -1,12 +1,15 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, MutableRefObject, useEffect } from "react";
 import style from "./style";
 import { TimedSection } from "@/types/types";
 import { formatDuration, intervalToDuration, format } from "date-fns";
+import useIntersect from "@/components/hooks/useIntersect";
 
 export type SectionProps = {
   className?: string;
   section: TimedSection;
   id: number;
+  setHighlightedSectionIndex: (index: number) => void;
+  root: MutableRefObject<null>;
 };
 
 const msToTime = (milliseconds: number) => {
@@ -23,9 +26,22 @@ const Profile: FunctionComponent<SectionProps> = ({
   className,
   section,
   id,
+  setHighlightedSectionIndex,
+  root,
 }) => {
+  const [ref, entry] = useIntersect({
+    threshold: 0.8,
+    root: root.current,
+    rootMargin: "0px 50px 0px 50px",
+  });
+
+  useEffect(() => {
+    if (!entry) return;
+    if (entry.intersectionRatio > 0.8) setHighlightedSectionIndex(id);
+  }, [entry?.intersectionRatio, setHighlightedSectionIndex, id]);
+
   return (
-    <div className={className}>
+    <div className={className} ref={ref}>
       <div className={`detail`}>
         <div className={"section-index"}>{id + 1}</div>
         <p className={"section-data"}>

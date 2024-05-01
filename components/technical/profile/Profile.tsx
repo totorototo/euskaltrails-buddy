@@ -1,5 +1,5 @@
 import style from "./style";
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, useEffect, useRef, useState } from "react";
 import { Coordinate, TimedSection } from "@/types/types";
 import * as d3Array from "d3-array";
 import { createXScale, createYScale, getArea } from "@/helpers/d3";
@@ -45,9 +45,13 @@ const Profile: FunctionComponent<ProfileProps> = ({
     y: { min: 0, max: 0 },
   });
 
+  const root = useRef(null);
   const [scales, setScales] = useState<Scales | null>(null); // Fixing the type of scales
   const [profileArea, setProfileArea] = useState<Area | null>(null);
+  const [highlightedArea, setHighlightedArea] = useState<Area | null>(null);
   const [smoothedElevations, setSmoothedElevations] = useState<number[]>([]);
+  const [highlightedSectionIndex, setHighlightedSectionIndex] =
+    useState<number>(0);
 
   // compute path and area
   useEffect(() => {
@@ -105,11 +109,63 @@ const Profile: FunctionComponent<ProfileProps> = ({
     }
   }, [enhancedPositions]);
 
+  // compute highlighted area
+  useEffect(() => {
+    console.log("called");
+
+    if (
+      !scales ||
+      !scales.x ||
+      !scales.y ||
+      !domain ||
+      !timedSections ||
+      timedSections.length === 0
+    )
+      return;
+
+    const currentTimedSection = timedSections[highlightedSectionIndex];
+    if (!currentTimedSection) return;
+
+    // get kms
+    const start = currentTimedSection.departure.km;
+    const end = currentTimedSection.arrival.km;
+    console.log(highlightedSectionIndex, start, end);
+
+    // find closing indices and splice enhanced positions
+    const filteredEnhancedPositions = enhancedPositions.filter(
+      (enhancedPosition) =>
+        enhancedPosition.distance > start * 1000 &&
+        enhancedPosition.distance < end * 1000,
+    );
+
+    // compute area
+    const area = getArea(
+      filteredEnhancedPositions,
+      scales.x,
+      scales.y,
+      domain.y.min,
+    );
+
+    setHighlightedArea(area);
+  }, [
+    scales,
+    domain,
+    enhancedPositions,
+    highlightedSectionIndex,
+    timedSections,
+  ]);
+
   return (
     <div className={className} style={{ width, height }}>
-      <div className={"sections-container"}>
+      <div className={"sections-container"} ref={root}>
         {timedSections.map((section, index) => (
-          <Section section={section} id={index} key={index} />
+          <Section
+            root={root}
+            section={section}
+            id={index}
+            key={index}
+            setHighlightedSectionIndex={setHighlightedSectionIndex}
+          />
         ))}
       </div>
       <div className={"svg-container"} style={{ width, height: height * 0.2 }}>
@@ -138,6 +194,15 @@ const Profile: FunctionComponent<ProfileProps> = ({
               strokeWidth="0"
               fill={"url(#gradient2)"}
               opacity={1}
+            />
+          )}
+          {highlightedArea && highlightedArea.path && (
+            <path
+              d={highlightedArea.path}
+              stroke={"transparent"}
+              strokeWidth="0"
+              fill={"url(#gradient1)"}
+              opacity={0.4}
             />
           )}
           {enhancedCheckpoints &&
