@@ -45,6 +45,7 @@ export type TimedSection = Section & {
   closingDate: string;
   duration: number;
   slowestAverageSpeed: number;
+  elapsedTime: number;
 };
 
 export type TrailRace = {

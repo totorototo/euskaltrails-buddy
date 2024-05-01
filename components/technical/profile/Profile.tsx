@@ -1,12 +1,13 @@
 import style from "./style";
 import { FunctionComponent, useEffect, useState } from "react";
-import { Coordinate } from "@/types/types";
+import { Coordinate, TimedSection } from "@/types/types";
 import * as d3Array from "d3-array";
 import { createXScale, createYScale, getArea } from "@/helpers/d3";
 import { ScaleLinear } from "d3-scale";
 import { Gradient } from "../../index";
 import { smooth } from "@/helpers/smooth";
 import { EnhancedPosition } from "@/helpers/trackAnalyzer";
+import Section from "@/components/technical/profile/sections/Section";
 
 export type ProfileProps = {
   width: number;
@@ -15,6 +16,7 @@ export type ProfileProps = {
   extrema: EnhancedPosition[];
   enhancedPositions: EnhancedPosition[];
   enhancedCheckpoints: EnhancedPosition[];
+  timedSections: TimedSection[];
 };
 
 type Domain = {
@@ -36,6 +38,7 @@ const Profile: FunctionComponent<ProfileProps> = ({
   extrema,
   enhancedPositions,
   enhancedCheckpoints,
+  timedSections,
 }) => {
   const [domain, setDomain] = useState<Domain>({
     x: { min: 0, max: 0 },
@@ -104,6 +107,11 @@ const Profile: FunctionComponent<ProfileProps> = ({
 
   return (
     <div className={className} style={{ width, height }}>
+      <div className={"sections-container"}>
+        {timedSections.map((section, index) => (
+          <Section section={section} id={index} key={index} />
+        ))}
+      </div>
       <div className={"svg-container"} style={{ width, height: height * 0.2 }}>
         <svg
           height={height * 0.2}

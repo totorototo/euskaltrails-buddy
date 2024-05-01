@@ -96,6 +96,7 @@ function computeTimedSections({
           (closingSectionKilometer / elapsedTime) * 3600;
 
         const timedSection: TimedSection = {
+          elapsedTime,
           openingDate: openingDate.toString(),
           closingDate: closingDate.toString(),
           slowestAverageSpeed,
@@ -394,6 +395,7 @@ const Home: FunctionComponent<AppProps> = ({ race }) => {
       <AutoSizer>
         {({ width, height }) => (
           <Profile
+            timedSections={race.timedSections}
             width={width}
             height={height}
             enhancedPositions={race.enhancedPositions}

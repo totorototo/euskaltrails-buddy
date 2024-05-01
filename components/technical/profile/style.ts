@@ -13,6 +13,23 @@ const style = (Component: FunctionComponent<ProfileProps>) => styled(Component)`
     left: 0;
   }
 
+  .sections-container {
+    scrollbar-width: none;
+    ::-webkit-scrollbar {
+      display: none; /* Safari and Chrome */
+    }
+    position: absolute;
+    height: 60%;
+    bottom: 0;
+    top: 0;
+    width: 100vw;
+    scroll-snap-type: x mandatory;
+    display: flex;
+    overflow: auto;
+    flex: none;
+    flex-flow: row nowrap;
+  }
+
   .svg-container {
     scrollbar-width: none;
     ::-webkit-scrollbar {
