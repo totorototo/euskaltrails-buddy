@@ -72,12 +72,12 @@ const Profile: FunctionComponent<ProfileProps> = ({
         min: 0,
         max: enhancedPositions[enhancedPositions.length - 1].distance,
       },
-      { min: 0, max: width },
+      { min: 0, max: width * 4 },
     );
 
     const y = createYScale(
       { min: domain.y.min, max: domain.y.max },
-      { min: 0, max: height * 0.2 },
+      { min: 0, max: height * 0.5 },
     );
 
     setScales({ x, y });
@@ -165,11 +165,11 @@ const Profile: FunctionComponent<ProfileProps> = ({
           />
         ))}
       </div>
-      <div className={"svg-container"} style={{ width, height: height * 0.2 }}>
+      <div className={"svg-container"} style={{ width, height: height * 0.5 }}>
         <svg
-          height={height * 0.2}
-          width={width}
-          viewBox={`0 0 ${width} ${height * 0.2}`}
+          height={height * 0.5}
+          width={width * 4}
+          viewBox={`0 0 ${width * 4} ${height * 0.5}`}
         >
           <Gradient
             from={"#a0dcfd"}

@@ -363,7 +363,7 @@ export async function getStaticProps() {
     );
 
     const race: TrailRace = {
-      enhancedCheckpoints,
+      enhancedCheckpoints, // TODO: to be renamed -> enhanced checkpoints positions
       distance,
       wayPoints: coordinates,
       enhancedPositions,
