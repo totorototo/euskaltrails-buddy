@@ -28,7 +28,7 @@ const style = (Component: FunctionComponent<SectionProps>) => styled(Component)`
       min-width: 2rem;
       //flex: 1 1 auto;
       width: 30%;
-      color: var(--fbc-light-gray);
+      color: var(--syntax-txt);
     }
 
     .section-data {
@@ -37,7 +37,7 @@ const style = (Component: FunctionComponent<SectionProps>) => styled(Component)`
       height: 100%;
       width: 70%;
       font-family: "Helvetica Neue";
-      color: var(--fbc-light-gray);
+      color: var(--syntax-txt);
 
       flex-direction: column;
       align-items: flex-start;
