@@ -111,8 +111,6 @@ const Profile: FunctionComponent<ProfileProps> = ({
 
   // compute highlighted area
   useEffect(() => {
-    console.log("called");
-
     if (
       !scales ||
       !scales.x ||
@@ -129,7 +127,6 @@ const Profile: FunctionComponent<ProfileProps> = ({
     // get kms
     const start = currentTimedSection.departure.km;
     const end = currentTimedSection.arrival.km;
-    console.log(highlightedSectionIndex, start, end);
 
     // find closing indices and splice enhanced positions
     const filteredEnhancedPositions = enhancedPositions.filter(
