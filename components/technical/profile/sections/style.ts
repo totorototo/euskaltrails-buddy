@@ -23,11 +23,11 @@ const style = (Component: FunctionComponent<SectionProps>) => styled(Component)`
       display: grid;
       place-items: center;
       font-weight: bolder;
-      font-size: 2.6rem;
+      font-size: 6rem;
       letter-spacing: -0.05em;
       min-width: 2rem;
       //flex: 1 1 auto;
-      width: 30%;
+      width: 35%;
       color: var(--syntax-txt);
     }
 
@@ -35,8 +35,8 @@ const style = (Component: FunctionComponent<SectionProps>) => styled(Component)`
       display: flex;
       //flex: 1 1 auto;
       height: 100%;
-      width: 70%;
-      font-family: "Helvetica Neue";
+      width: 65%;
+      // font-family: "Helvetica Neue";
       color: var(--syntax-txt);
 
       flex-direction: column;
@@ -46,18 +46,22 @@ const style = (Component: FunctionComponent<SectionProps>) => styled(Component)`
       span:first-child {
         color: var(--syntax-del);
         font-weight: 900;
-        font-size: 1.1rem;
+        font-size: 1rem;
         padding-bottom: 2px;
+        margin-bottom: 1rem;
       }
 
       .type {
+        font-size: 1.1rem;
         font-weight: 800;
         color: var(--syntax-regex);
         text-transform: capitalize;
+        margin-bottom: 0.2rem;
       }
 
       span:not(.type) {
         //margin-top: 0.1rem;
+        margin-bottom: 0.4rem;
       }
     }
   }

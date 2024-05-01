@@ -6,7 +6,6 @@ import { promises as fs } from "fs";
 import { csvParse } from "d3-dsv";
 import {
   Checkpoint,
-  Coordinate,
   Kind,
   Section,
   TimedSection,
@@ -17,11 +16,9 @@ import { differenceInMilliseconds } from "date-fns";
 import { FunctionComponent, useRef } from "react";
 import { Container } from "@/components";
 import { FeatureCollection, Position } from "geojson";
-import { smooth } from "@/helpers/smooth";
 import { climbpro } from "@/helpers/climbpro";
 import { AutoSizer } from "react-virtualized";
 import Profile from "@/components/technical/profile/Profile";
-import { computeDistance } from "@/helpers/positionHelper";
 import { createTrackAnalyzer, TrackAnalyzer } from "@/helpers/trackAnalyzer";
 
 type SectionStatistics = {
