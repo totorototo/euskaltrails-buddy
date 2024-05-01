@@ -35,7 +35,7 @@ const style = (Component: FunctionComponent<SectionProps>) => styled(Component)`
       //flex: 1 1 auto;
       height: 100%;
       width: 70%;
-      font-family: "Helvetica Neue";
+      // font-family: "Helvetica Neue";
 
       flex-direction: column;
       align-items: flex-start;
