@@ -1,6 +1,6 @@
 import style from "./style";
 import { FunctionComponent, useEffect, useRef, useState } from "react";
-import { Coordinate, TimedSection } from "@/types/types";
+import { TimedSection } from "@/types/types";
 import * as d3Array from "d3-array";
 import { createXScale, createYScale, getArea } from "@/helpers/d3";
 import { ScaleLinear } from "d3-scale";
