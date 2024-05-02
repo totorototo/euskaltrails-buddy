@@ -11,6 +11,17 @@ const d3 = {
   d3Array,
 };
 
+export const createXScaleBand = (
+  domain: string[],
+  range = { min: 0, max: 0 },
+) => {
+  return d3.scale
+    .scaleBand()
+    .domain(domain)
+    .range([range.min, range.max])
+    .padding(0.2);
+};
+
 export const createXScale = (
   domain = { min: 0, max: 0 },
   range = { min: 0, max: 0 },
@@ -30,7 +41,7 @@ export const createYScale = (
       .scaleLinear()
       .domain([domain.min, domain.max])
       // We invert our range so it outputs using the axis that React uses.
-      .range([range.max, range.min])
+      .range([range.min, range.max])
   );
 };
 

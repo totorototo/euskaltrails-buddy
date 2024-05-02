@@ -2,12 +2,30 @@ import style from "./style";
 import { FunctionComponent, useEffect, useRef, useState } from "react";
 import { TimedSection } from "@/types/types";
 import * as d3Array from "d3-array";
-import { createXScale, createYScale, getArea } from "@/helpers/d3";
-import { ScaleLinear } from "d3-scale";
+import { createXScaleBand, createYScale } from "@/helpers/d3";
+import { ScaleBand, ScaleLinear } from "d3-scale";
 import { Gradient } from "../../index";
 import { smooth } from "@/helpers/smooth";
 import { EnhancedPosition } from "@/helpers/trackAnalyzer";
 import Section from "@/components/technical/profile/sections/Section";
+
+// eslint-disable-next-line no-extend-native
+// @ts-ignore
+Array.prototype.groupBy = function <T, K>(
+  this: T[],
+  fn: (item: T, index: number, array: T[]) => K,
+): { [key: string]: T[] } {
+  return this.reduce(
+    (accu: { [key: string]: T[] }, item: T, index: number, array: T[]) => {
+      const key: K = fn(item, index, array);
+      // eslint-disable-next-line no-param-reassign
+      accu[key as string] = accu[key as string] || [];
+      accu[key as string].push(item);
+      return accu;
+    },
+    {},
+  );
+};
 
 export type ProfileProps = {
   width: number;
@@ -25,7 +43,7 @@ type Domain = {
 };
 
 type Scales = {
-  x: ScaleLinear<number, number>;
+  x: ScaleBand<string>;
   y: ScaleLinear<number, number>;
 };
 
@@ -47,41 +65,11 @@ const Profile: FunctionComponent<ProfileProps> = ({
 
   const root = useRef(null);
   const [scales, setScales] = useState<Scales | null>(null); // Fixing the type of scales
-  const [profileArea, setProfileArea] = useState<Area | null>(null);
-  const [highlightedArea, setHighlightedArea] = useState<Area | null>(null);
   const [smoothedElevations, setSmoothedElevations] = useState<number[]>([]);
   const [highlightedSectionIndex, setHighlightedSectionIndex] =
     useState<number>(0);
 
-  // compute path and area
-  useEffect(() => {
-    if (!smoothedElevations || !scales || !scales.x || !scales.y || !domain)
-      return;
-
-    const area = getArea(enhancedPositions, scales.x, scales.y, domain.y.min);
-
-    setProfileArea(area);
-  }, [scales, enhancedPositions, domain]);
-
-  // compute scales
-  useEffect(() => {
-    if (!domain || !enhancedPositions) return;
-
-    const x = createXScale(
-      {
-        min: 0,
-        max: enhancedPositions[enhancedPositions.length - 1].distance,
-      },
-      { min: 0, max: width * 4 },
-    );
-
-    const y = createYScale(
-      { min: domain.y.min, max: domain.y.max },
-      { min: 0, max: height * 0.5 },
-    );
-
-    setScales({ x, y });
-  }, [width, height, enhancedPositions, domain]);
+  const [data, set] = useState<{ distance: string; elevation: number }[]>([]);
 
   // compute domain
   useEffect(() => {
@@ -109,48 +97,51 @@ const Profile: FunctionComponent<ProfileProps> = ({
     }
   }, [enhancedPositions]);
 
-  // compute highlighted area
   useEffect(() => {
-    if (
-      !scales ||
-      !scales.x ||
-      !scales.y ||
-      !domain ||
-      !timedSections ||
-      timedSections.length === 0
-    )
-      return;
+    if (!enhancedPositions) return;
 
-    const currentTimedSection = timedSections[highlightedSectionIndex];
-    if (!currentTimedSection) return;
-
-    // get kms
-    const start = currentTimedSection.departure.km;
-    const end = currentTimedSection.arrival.km;
-
-    // find closing indices and splice enhanced positions
-    const filteredEnhancedPositions = enhancedPositions.filter(
-      (enhancedPosition) =>
-        enhancedPosition.distance > start * 1000 &&
-        enhancedPosition.distance < end * 1000,
+    // @ts-ignore
+    const groupedEnhancedPositions = enhancedPositions.groupBy(
+      (enhancedPosition: EnhancedPosition) =>
+        Math.trunc(enhancedPosition.distance / 1000),
     );
 
-    // compute area
-    const area = getArea(
-      filteredEnhancedPositions,
-      scales.x,
-      scales.y,
-      domain.y.min,
+    const averagedEnhancedPositions = Object.entries(
+      groupedEnhancedPositions,
+    ).reduce(
+      (accu, [key, value]) => {
+        const distance = key;
+        const averageElevation = (value as EnhancedPosition[]).reduce(
+          (accu, currentValue, index, array) => {
+            return (accu + currentValue.position[2]) / 2;
+          },
+          0,
+        );
+
+        return [...accu, { distance, elevation: Math.trunc(averageElevation) }];
+      },
+      [] as { distance: string; elevation: number }[],
     );
 
-    setHighlightedArea(area);
-  }, [
-    scales,
-    domain,
-    enhancedPositions,
-    highlightedSectionIndex,
-    timedSections,
-  ]);
+    set(averagedEnhancedPositions);
+  }, [enhancedPositions]);
+
+  // compute scales
+  useEffect(() => {
+    if (!domain || !data) return;
+
+    const x = createXScaleBand(
+      data.map((item) => item.distance),
+      { min: 0, max: width * 4 },
+    );
+
+    const y = createYScale(
+      { min: domain.y.min, max: domain.y.max },
+      { min: 0, max: height * 0.5 },
+    );
+
+    setScales({ x, y });
+  }, [width, height, data, domain]);
 
   return (
     <div className={className} style={{ width, height }}>
@@ -184,66 +175,36 @@ const Profile: FunctionComponent<ProfileProps> = ({
             toOffset={"100%"}
             id="gradient2"
           />
-          {profileArea && profileArea.path && (
-            <path
-              d={profileArea.path}
-              stroke={"transparent"}
-              strokeWidth="0"
-              fill={"url(#gradient2)"}
-              opacity={1}
-            />
-          )}
-          {highlightedArea && highlightedArea.path && (
-            <path
-              d={highlightedArea.path}
-              stroke={"transparent"}
-              strokeWidth="0"
-              fill={"url(#gradient1)"}
-              opacity={0.4}
-            />
-          )}
-          {enhancedCheckpoints &&
-            enhancedCheckpoints.length &&
-            scales &&
-            enhancedCheckpoints.map((enhancedCheckpoint, index) => (
-              <g key={index}>
-                <circle
-                  className={"shadow"}
-                  cx={scales.x(enhancedCheckpoint.distance)}
-                  cy={scales.y(enhancedCheckpoint.position[2])}
-                  r="4"
-                  fill={"var(--color-decorative)"}
+          <g>
+            {data &&
+              scales &&
+              data.map((item, index) => (
+                <rect
+                  key={index}
+                  fill={
+                    enhancedCheckpoints.find(
+                      (enhancedCheckpoint) =>
+                        Math.trunc(enhancedCheckpoint.distance / 1000) ===
+                        parseInt(item.distance),
+                    )
+                      ? "var(--color-text)"
+                      : parseInt(item.distance) >=
+                            timedSections[highlightedSectionIndex].departure
+                              .km &&
+                          parseInt(item.distance) <
+                            timedSections[highlightedSectionIndex].arrival.km
+                        ? "var(--color-text)"
+                        : "var(--color-text)"
+                  }
+                  x={scales.x(item.distance)}
+                  y={scales.y(0)}
+                  height={scales.y(item.elevation)}
+                  width={scales.x.bandwidth()}
+                  stroke={"transparent"}
+                  strokeWidth={0}
                 />
-                <circle
-                  onClick={() => console.log("bim")}
-                  cx={scales.x(enhancedCheckpoint.distance)}
-                  cy={scales.y(enhancedCheckpoint.position[2])}
-                  r="3"
-                  fill={"var(--color-background)"}
-                ></circle>
-              </g>
-            ))}
-          {/*{extrema &&
-            extrema.length &&
-            scales &&
-            extrema.map((extrem, index) => (
-              <g key={index}>
-                <circle
-                  className={"shadow"}
-                  cx={scales.x(extrem.distance)}
-                  cy={scales.y(extrem.position[2])}
-                  r="4"
-                  fill={"var(--syntax-del)"}
-                />
-                <circle
-                  onClick={() => console.log("bim")}
-                  cx={scales.x(extrem.distance)}
-                  cy={scales.y(extrem.position[2])}
-                  r="3"
-                  fill={"var(--color-background)"}
-                ></circle>
-              </g>
-            ))}*/}
+              ))}
+          </g>
         </svg>
       </div>
     </div>

@@ -11,6 +11,7 @@ const style = (Component: FunctionComponent<ProfileProps>) => styled(Component)`
     position: absolute;
     bottom: 0;
     left: 0;
+    transform: scaleY(-1);
   }
 
   .sections-container {

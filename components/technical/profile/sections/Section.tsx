@@ -38,12 +38,15 @@ const Profile: FunctionComponent<SectionProps> = ({
   useEffect(() => {
     if (!entry) return;
     if (entry.intersectionRatio > 0.8) setHighlightedSectionIndex(id);
-  }, [entry?.intersectionRatio, setHighlightedSectionIndex, id]);
+  }, [entry, entry?.intersectionRatio, setHighlightedSectionIndex, id]);
 
   return (
     <div className={className} ref={ref}>
       <div className={`detail`}>
-        <div className={"section-index"}>{id + 1}</div>
+        <div className={"background"}>
+          {id+1}
+        </div>
+        {/*<div className={"section-index"}>{id + 1}</div>*/}
         <p className={"section-data"}>
           <span>{`${section.departure.location} - ${section.arrival.location}`}</span>
 

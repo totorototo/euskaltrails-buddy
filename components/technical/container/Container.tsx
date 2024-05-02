@@ -22,5 +22,4 @@ export default styled(Container)`
   position: fixed;
   overflow: hidden;
   overscroll-behavior-y: none;
-  background-color: aqua;
 `;

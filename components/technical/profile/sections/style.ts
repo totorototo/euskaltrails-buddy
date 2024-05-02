@@ -18,26 +18,33 @@ const style = (Component: FunctionComponent<SectionProps>) => styled(Component)`
     opacity: 1;
     padding: 1rem;
 
-    .section-index {
-      //font-family: "Love Ya Like A Sister", cursive;
-      display: grid;
-      place-items: center;
-      font-weight: bolder;
-      font-size: 6rem;
+    .background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      z-index: -1;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      font-size: 16rem;
       letter-spacing: -0.05em;
       min-width: 2rem;
-      //flex: 1 1 auto;
-      width: 35%;
-      color: var(--syntax-txt);
+      margin-top: 2rem;
+      margin-right: -3rem;
+      opacity: 0.1;
+
+      color: var(--color-gray-900);
     }
 
     .section-data {
       display: flex;
-      //flex: 1 1 auto;
       height: 100%;
-      width: 65%;
-      // font-family: "Helvetica Neue";
+      width: 90%;
       color: var(--syntax-txt);
+      mix-blend-mode: difference;
 
       flex-direction: column;
       align-items: flex-start;
@@ -45,22 +52,19 @@ const style = (Component: FunctionComponent<SectionProps>) => styled(Component)`
 
       span:first-child {
         color: var(--syntax-del);
-        font-weight: 900;
-        font-size: 1rem;
         padding-bottom: 2px;
-        margin-bottom: 1rem;
+        font-size: 1.4rem;
       }
 
       .type {
         font-size: 1.1rem;
-        font-weight: 800;
         color: var(--syntax-regex);
         text-transform: capitalize;
-        margin-bottom: 0.2rem;
+        margin-bottom: 0.6rem;
+        margin-top: 0.6rem;
       }
 
       span:not(.type) {
-        //margin-top: 0.1rem;
         margin-bottom: 0.4rem;
       }
     }
