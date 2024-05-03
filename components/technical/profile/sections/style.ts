@@ -44,25 +44,27 @@ const style = (Component: FunctionComponent<SectionProps>) => styled(Component)`
       height: 100%;
       width: 90%;
       color: var(--color-text);
-      // mix-blend-mode: difference;
+      mix-blend-mode: difference;
 
       flex-direction: column;
       align-items: flex-start;
       justify-content: center;
 
       span:first-child {
-        color: var(--color-alert);
+        color: var(--color-text);
         padding-bottom: 2px;
         font-size: 1.2rem;
         line-height: 1.8rem;
+        opacity: 0.6;
       }
 
       .type {
         font-size: 1.1rem;
-        color: var(--color-warning);
+        color: var(--color-text);
         text-transform: capitalize;
         margin-bottom: 0.6rem;
         margin-top: 0.6rem;
+        opacity: 0.8;
       }
 
       span:not(.type) {
