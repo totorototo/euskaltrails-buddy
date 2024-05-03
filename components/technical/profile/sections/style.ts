@@ -43,22 +43,23 @@ const style = (Component: FunctionComponent<SectionProps>) => styled(Component)`
       display: flex;
       height: 100%;
       width: 90%;
-      color: var(--syntax-txt);
-      mix-blend-mode: difference;
+      color: var(--color-text);
+      // mix-blend-mode: difference;
 
       flex-direction: column;
       align-items: flex-start;
       justify-content: center;
 
       span:first-child {
-        color: var(--syntax-del);
+        color: var(--color-alert);
         padding-bottom: 2px;
-        font-size: 1.4rem;
+        font-size: 1.2rem;
+        line-height: 1.8rem;
       }
 
       .type {
         font-size: 1.1rem;
-        color: var(--syntax-regex);
+        color: var(--color-warning);
         text-transform: capitalize;
         margin-bottom: 0.6rem;
         margin-top: 0.6rem;

@@ -187,14 +187,14 @@ const Profile: FunctionComponent<ProfileProps> = ({
                         Math.trunc(enhancedCheckpoint.distance / 1000) ===
                         parseInt(item.distance),
                     )
-                      ? "var(--color-text)"
+                      ? "var(--color-accent)"
                       : parseInt(item.distance) >=
                             timedSections[highlightedSectionIndex].departure
                               .km &&
                           parseInt(item.distance) <
                             timedSections[highlightedSectionIndex].arrival.km
                         ? "var(--color-text)"
-                        : "var(--color-text)"
+                        : "var(--color-accent)"
                   }
                   x={scales.x(item.distance)}
                   y={scales.y(0)}

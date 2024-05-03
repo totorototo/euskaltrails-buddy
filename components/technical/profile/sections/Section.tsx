@@ -43,12 +43,10 @@ const Profile: FunctionComponent<SectionProps> = ({
   return (
     <div className={className} ref={ref}>
       <div className={`detail`}>
-        <div className={"background"}>
-          {id+1}
-        </div>
+        <div className={"background"}>{id + 1}</div>
         {/*<div className={"section-index"}>{id + 1}</div>*/}
         <p className={"section-data"}>
-          <span>{`${section.departure.location} - ${section.arrival.location}`}</span>
+          <span>{`${section.departure.location} - ${section.arrival.location} : ${Math.floor(section.departure.km)} / ${Math.floor(section.arrival.km)}`}</span>
 
           <span className={"type"}>distance</span>
           <span>{`${section.distance.toFixed(1)}km `}</span>
@@ -60,7 +58,7 @@ const Profile: FunctionComponent<SectionProps> = ({
             )}D+ ${section.elevation.loss.toFixed(0)}D-`}
           </span>
 
-          <span className={"type"}>duration</span>
+          <span className={"type"}>Max Duration</span>
           <span>
             {formatDuration(
               intervalToDuration({ start: 0, end: section.duration }),
@@ -77,7 +75,7 @@ const Profile: FunctionComponent<SectionProps> = ({
               "dd-MM HH:mm",
             )}
           </span>
-          <span className={"type"}>since start</span>
+          <span className={"type"}>Max Comp Time</span>
           <span>{msToTime(section.elapsedTime)}</span>
           <span className={"type"}>min avg speed</span>
           <span>{`${section.slowestAverageSpeed.toFixed(2)} km/h`}</span>
