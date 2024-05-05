@@ -63,12 +63,13 @@ const style = (Component: FunctionComponent<SectionProps>) => styled(Component)`
         text-transform: capitalize;
         margin-bottom: 0.6rem;
         margin-top: 0.6rem;
-        color: var(--color-accent);
+        color: var(--color-text);
       }
 
       span:not(.type, :first-child) {
         margin-bottom: 0.4rem;
         color: var(--color-text);
+        font-size: 0.8rem;
       }
     }
   }

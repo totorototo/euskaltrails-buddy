@@ -31,8 +31,8 @@ const GlobalStyle = createGlobalStyle`
     position: fixed;
     overflow: hidden;
     overscroll-behavior-y: none;
-    background-color: #101010;
-    background: radial-gradient(circle at bottom center, #212121 0%, #101010 80%);
+    // background-color: #101010;
+    // background: radial-gradient(circle at bottom center, #212121 0%, #101010 80%);
    
     margin: 0;
     font-family: "Open Sans", sans-serif;
@@ -59,8 +59,9 @@ const GlobalStyle = createGlobalStyle`
     div#__next,
     div#__next > div {
       height:100vh;
-      background-color: #101010;
-      background: radial-gradient(circle at bottom center, #212121 0%, #101010 80%);
+        background-color: var(--color-background);
+      // background-color: #101010;
+      // background: radial-gradient(circle at bottom center, #212121 0%, #101010 80%);
     }
   }
   
