@@ -43,10 +43,13 @@ const Profile: FunctionComponent<SectionProps> = ({
   return (
     <div className={className} ref={ref}>
       <div className={`detail`}>
-        <div className={"background"}>{id + 1}</div>
-        {/*<div className={"section-index"}>{id + 1}</div>*/}
+        <div className={"background"}>
+          <span>{`${Math.floor(section.departure.km)}`}</span>
+          <span>{`${Math.floor(section.arrival.km)}`}</span>
+          <span></span>
+        </div>
         <p className={"section-data"}>
-          <span>{`${section.departure.location} - ${section.arrival.location} : ${Math.floor(section.departure.km)} / ${Math.floor(section.arrival.km)}`}</span>
+          <span>{`${section.departure.location} - ${section.arrival.location}`}</span>
 
           <span className={"type"}>distance</span>
           <span>{`${section.distance.toFixed(1)}km `}</span>

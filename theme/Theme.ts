@@ -3,18 +3,18 @@ import { Theme } from "@/types/components";
 const THEME: Theme = {
   colors: {
     light: {
-      "--color-background": "rgb(247, 247, 255)",
-      "--color-text": "rgb(46, 53, 50)",
-      "--color-accent": "rgb(46, 134, 171)",
-      "--color-warning": "rgb(241, 143, 1)",
-      "--color-alert": "rgb(192, 50, 33)",
+      "--color-background": "#252422",
+      "--color-text": "#CCC5B9",
+      "--color-accent": "#EB5E28",
+      "--color-ligthen": "#FFFCF2",
+      "--color-darken": "#403D39",
     },
     dark: {
-      "--color-text": "rgb(247, 247, 255)",
-      "--color-background": "rgb(46, 53, 50)",
-      "--color-accent": "rgb(46, 134, 171)",
-      "--color-warning": "rgb(241, 143, 1)",
-      "--color-alert": "rgb(192, 50, 33)",
+      "--color-background": "#252422",
+      "--color-text": "#CCC5B9",
+      "--color-accent": "#EB5E28",
+      "--color-ligthen": "#FFFCF2",
+      "--color-darken": "#403D39",
     },
   },
   font: {

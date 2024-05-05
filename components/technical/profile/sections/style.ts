@@ -29,42 +29,41 @@ const style = (Component: FunctionComponent<SectionProps>) => styled(Component)`
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      font-size: 16rem;
+      font-size: 6rem;
       letter-spacing: -0.05em;
       min-width: 2rem;
-      margin-top: 2rem;
-      margin-right: -3rem;
-      opacity: 0.1;
-
-      color: var(--color-gray-900);
+      opacity: 0.6;
+      color: var(--color-darken);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      justify-content: center;
+      align-items: flex-end;
+      // margin-right: -2rem;
     }
 
     .section-data {
       display: flex;
       height: 100%;
       width: 90%;
-      color: var(--color-text);
-      mix-blend-mode: difference;
 
       flex-direction: column;
       align-items: flex-start;
       justify-content: center;
 
       span:first-child {
-        color: var(--color-text);
+        color: var(--color-ligthen);
         padding-bottom: 2px;
         font-size: 1.2rem;
         line-height: 1.8rem;
-        opacity: 0.6;
       }
 
       .type {
         font-size: 1.1rem;
-        color: var(--color-text);
         text-transform: capitalize;
         margin-bottom: 0.6rem;
         margin-top: 0.6rem;
-        opacity: 0.8;
+        color: var(--color-text);
       }
 
       span:not(.type) {
