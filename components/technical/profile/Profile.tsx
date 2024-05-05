@@ -194,7 +194,7 @@ const Profile: FunctionComponent<ProfileProps> = ({
                           parseInt(item.distance) <
                             timedSections[highlightedSectionIndex].arrival.km
                         ? "var(--color-accent)"
-                        : "var(--color-accent)"
+                        : "var(--color-text)"
                   }
                   x={scales.x(item.distance)}
                   y={scales.y(0)}
