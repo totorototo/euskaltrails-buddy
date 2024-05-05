@@ -14,6 +14,10 @@ const style = (Component: FunctionComponent<ProfileProps>) => styled(Component)`
     transform: scaleY(-1);
   }
 
+  svg rect {
+    transition: fill 400ms;
+  }
+
   .sections-container {
     scrollbar-width: none;
     ::-webkit-scrollbar {
