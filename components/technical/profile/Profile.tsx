@@ -89,13 +89,14 @@ const Profile: FunctionComponent<ProfileProps> = ({
       if (index > lastSectionKm) return 0;
 
       const offset = data.length - lastSectionKm;
-      return (data.length - offset - index) * 8;
+      return (data.length - offset - index) * 50;
     }
     // forward
     else {
       if (index < firstSectionKm) return 0;
-      const offest = data.length - firstSectionKm;
-      return (index - offest) * 8;
+
+      const offset = data.length - firstSectionKm;
+      return (index - offset) * 50;
     }
   }
 
@@ -208,11 +209,11 @@ const Profile: FunctionComponent<ProfileProps> = ({
           />
         ))}
       </div>
-      <div className={"svg-container"} style={{ width, height: height * 0.5 }}>
+      <div className={"svg-container"} style={{ width, height: height * 0.4 }}>
         <svg
-          height={height * 0.5}
+          height={height * 0.4}
           width={width * 3}
-          viewBox={`0 0 ${width * 3} ${height * 0.5}`}
+          viewBox={`0 0 ${width * 3} ${height * 0.4}`}
         >
           <Gradient
             from={"#a0dcfd"}

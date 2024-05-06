@@ -46,7 +46,6 @@ const Profile: FunctionComponent<SectionProps> = ({
         <div className={"background"}>
           <span>{`${Math.floor(section.departure.km)}`}</span>
           <span>{`${Math.floor(section.arrival.km)}`}</span>
-          <span></span>
         </div>
         <p className={"section-data"}>
           <span>{`${section.departure.location} - ${section.arrival.location}`}</span>

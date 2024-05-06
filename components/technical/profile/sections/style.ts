@@ -27,19 +27,21 @@ const style = (Component: FunctionComponent<SectionProps>) => styled(Component)`
       z-index: -1;
       overflow: hidden;
       display: flex;
-      align-items: center;
+      align-items: flex-end;
       justify-content: flex-end;
       font-size: 6rem;
       letter-spacing: -0.05em;
       min-width: 2rem;
-      opacity: 0.6;
       color: var(--color-darken);
       display: flex;
       flex-direction: column;
-      gap: 1rem;
-      justify-content: center;
+      gap: 3rem;
+      justify-content: flex-end;
       align-items: flex-end;
-      // margin-right: -2rem;
+      span {
+        writing-mode: vertical-lr;
+        text-orientation: upright;
+      }
     }
 
     .section-data {
@@ -52,7 +54,7 @@ const style = (Component: FunctionComponent<SectionProps>) => styled(Component)`
       justify-content: center;
 
       span:first-child {
-        color: var(--color-ligthen);
+        color: var(--color-accent);
         padding-bottom: 2px;
         font-size: 1.2rem;
         line-height: 1.8rem;
