@@ -69,7 +69,7 @@ const style = (Component: FunctionComponent<SectionProps>) => styled(Component)`
       span:not(.type, :first-child) {
         margin-bottom: 0.4rem;
         color: var(--color-text);
-        font-size: 0.8rem;
+        font-size: 1rem;
       }
     }
   }

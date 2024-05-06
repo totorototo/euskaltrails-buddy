@@ -28,6 +28,7 @@
     "positic": "1.0.10",
     "react": "^18",
     "react-dom": "^18",
+    "react-spring": "^9.7.3",
     "react-virtualized": "^9.22.5",
     "styled-components": "^6.1.8",
     "xmldom": "^0.6.0",

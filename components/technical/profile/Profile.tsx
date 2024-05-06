@@ -8,6 +8,7 @@ import { Gradient } from "../../index";
 import { smooth } from "@/helpers/smooth";
 import { EnhancedPosition } from "@/helpers/trackAnalyzer";
 import Section from "@/components/technical/profile/sections/Section";
+import { animated, useSprings } from "react-spring";
 
 // eslint-disable-next-line no-extend-native
 // @ts-ignore
@@ -69,7 +70,34 @@ const Profile: FunctionComponent<ProfileProps> = ({
   const [highlightedSectionIndex, setHighlightedSectionIndex] =
     useState<number>(0);
 
+  const [previousHighlightedSectionIndex, setPreviousHighlightedSectionIndex] =
+    useState<number>(0);
+
   const [data, set] = useState<{ distance: string; elevation: number }[]>([]);
+
+  const [springs] = useSprings(
+    data.length,
+    (index) => ({
+      delay:
+        previousHighlightedSectionIndex >= highlightedSectionIndex
+          ? (data.length - index) * 8
+          : index * 8, // delay each rectangle by 10ms
+      to: {
+        fill:
+          parseInt(data[index].distance) >=
+            parseFloat(timedSections[highlightedSectionIndex].departure.km) &&
+          parseInt(data[index].distance) <
+            parseFloat(timedSections[highlightedSectionIndex].arrival.km)
+            ? "var(--color-accent)"
+            : "var(--color-text)",
+      },
+    }),
+    [highlightedSectionIndex],
+  );
+
+  useEffect(() => {
+    setPreviousHighlightedSectionIndex(highlightedSectionIndex);
+  }, [highlightedSectionIndex, setPreviousHighlightedSectionIndex]);
 
   // compute domain
   useEffect(() => {
@@ -132,7 +160,7 @@ const Profile: FunctionComponent<ProfileProps> = ({
 
     const x = createXScaleBand(
       data.map((item) => item.distance),
-      { min: 0, max: width * 4 },
+      { min: 0, max: width * 3 },
     );
 
     const y = createYScale(
@@ -159,8 +187,8 @@ const Profile: FunctionComponent<ProfileProps> = ({
       <div className={"svg-container"} style={{ width, height: height * 0.5 }}>
         <svg
           height={height * 0.5}
-          width={width * 4}
-          viewBox={`0 0 ${width * 4} ${height * 0.5}`}
+          width={width * 3}
+          viewBox={`0 0 ${width * 3} ${height * 0.5}`}
         >
           <Gradient
             from={"#a0dcfd"}
@@ -178,32 +206,21 @@ const Profile: FunctionComponent<ProfileProps> = ({
           <g>
             {data &&
               scales &&
-              data.map((item, index) => (
-                <rect
-                  key={index}
-                  fill={
-                    enhancedCheckpoints.find(
-                      (enhancedCheckpoint) =>
-                        Math.trunc(enhancedCheckpoint.distance / 1000) ===
-                        parseInt(item.distance),
-                    )
-                      ? "var(--color-accent)"
-                      : parseInt(item.distance) >=
-                            timedSections[highlightedSectionIndex].departure
-                              .km &&
-                          parseInt(item.distance) <
-                            timedSections[highlightedSectionIndex].arrival.km
-                        ? "var(--color-accent)"
-                        : "var(--color-text)"
-                  }
-                  x={scales.x(item.distance)}
-                  y={scales.y(0)}
-                  height={scales.y(item.elevation)}
-                  width={scales.x.bandwidth()}
-                  stroke={"transparent"}
-                  strokeWidth={0}
-                />
-              ))}
+              springs.map((props, index) => {
+                const item = data[index];
+                return (
+                  <animated.rect
+                    key={index}
+                    style={props}
+                    x={scales.x(item.distance)}
+                    y={scales.y(0)}
+                    height={scales.y(item.elevation)}
+                    width={scales.x.bandwidth()}
+                    stroke={"transparent"}
+                    strokeWidth={0}
+                  />
+                );
+              })}
           </g>
         </svg>
       </div>
