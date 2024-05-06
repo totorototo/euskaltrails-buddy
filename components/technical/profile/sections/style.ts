@@ -58,6 +58,7 @@ const style = (Component: FunctionComponent<SectionProps>) => styled(Component)`
         padding-bottom: 2px;
         font-size: 1.2rem;
         line-height: 1.8rem;
+        margin-bottom: 1.6rem;
       }
 
       .type {
