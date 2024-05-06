@@ -75,13 +75,37 @@ const Profile: FunctionComponent<ProfileProps> = ({
 
   const [data, set] = useState<{ distance: string; elevation: number }[]>([]);
 
+  function computeDelay(index: number) {
+    //1- compute direction
+    const direction =
+      previousHighlightedSectionIndex >= highlightedSectionIndex;
+
+    const currentSection = timedSections[highlightedSectionIndex];
+    const lastSectionKm = Math.floor(parseFloat(currentSection.arrival.km));
+    const firstSectionKm = Math.floor(parseFloat(currentSection.departure.km));
+
+    // backward
+    if (direction === true) {
+      if (index > lastSectionKm) return 0;
+
+      const offset = data.length - lastSectionKm;
+      return (data.length - offset - index) * 8;
+    }
+    // forward
+    else {
+      if (index < firstSectionKm) return 0;
+      const offest = data.length - firstSectionKm;
+      return (index - offest) * 8;
+    }
+  }
+
   const [springs] = useSprings(
     data.length,
     (index) => ({
-      delay:
-        previousHighlightedSectionIndex >= highlightedSectionIndex
-          ? (data.length - index) * 8
-          : index * 8, // delay each rectangle by 10ms
+      delay: computeDelay(index),
+      // previousHighlightedSectionIndex >= highlightedSectionIndex
+      //   ? (data.length - index) * 8
+      //   : index * 8, // delay each rectangle by 10ms
       to: {
         fill:
           parseInt(data[index].distance) >=
