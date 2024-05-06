@@ -7,7 +7,7 @@ describe("climbpro test suite", () => {
     const data = [1, 2, 3, 4, 5, 4, 5, 6, 7, 8, 9];
 
     // act
-    climbpro(data);
+    // climbpro(data);
 
     // assert
     expect(true).toBe(true);

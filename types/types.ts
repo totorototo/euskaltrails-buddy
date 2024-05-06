@@ -26,7 +26,7 @@ export enum Kind {
 export type Checkpoint = {
   location: string;
   label: string;
-  km: string;
+  km: number;
   cutoffTime: string; // would be an empty string if no time barrier ->see csv parser default behaviour
   kind: Kind;
 };

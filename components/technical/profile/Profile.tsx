@@ -81,8 +81,8 @@ const Profile: FunctionComponent<ProfileProps> = ({
       previousHighlightedSectionIndex >= highlightedSectionIndex;
 
     const currentSection = timedSections[highlightedSectionIndex];
-    const lastSectionKm = Math.floor(parseFloat(currentSection.arrival.km));
-    const firstSectionKm = Math.floor(parseFloat(currentSection.departure.km));
+    const lastSectionKm = Math.floor(currentSection.arrival.km);
+    const firstSectionKm = Math.floor(currentSection.departure.km);
 
     // backward
     if (direction === true) {
@@ -109,9 +109,9 @@ const Profile: FunctionComponent<ProfileProps> = ({
       to: {
         fill:
           parseInt(data[index].distance) >=
-            parseFloat(timedSections[highlightedSectionIndex].departure.km) &&
+            timedSections[highlightedSectionIndex].departure.km &&
           parseInt(data[index].distance) <
-            parseFloat(timedSections[highlightedSectionIndex].arrival.km)
+            timedSections[highlightedSectionIndex].arrival.km
             ? "var(--color-accent)"
             : "var(--color-text)",
       },
