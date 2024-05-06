@@ -74,7 +74,10 @@ const Profile: FunctionComponent<SectionProps> = ({
           <span className={"type"}>time barrier</span>
           <span>
             {format(
-              new Date(section.closingDate.replace(/-/g, "/")),
+              new Date(section.closingDate.replace(/-/g, "/")).toLocaleString(
+                "en-US",
+                { timeZone: "Europe/Vienna" },
+              ),
               "dd-MM HH:mm",
             )}
           </span>
