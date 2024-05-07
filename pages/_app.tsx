@@ -25,7 +25,7 @@ const GlobalStyle = createGlobalStyle`
   html{
      min-height: calc(100% + env(safe-area-inset-top));
      // padding-top: env(safe-area-inset-top);
-    // padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+     // padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
   }
   body {
     height:100vh;
@@ -60,7 +60,7 @@ const GlobalStyle = createGlobalStyle`
     div#__next,
     div#__next > div {
       height:100vh;
-        background-color: var(--color-background);
+      background-color: var(--color-background);
       // background-color: #101010;
       // background: radial-gradient(circle at bottom center, #212121 0%, #101010 80%);
     }

@@ -33,11 +33,9 @@ const style = (Component: FunctionComponent<SectionProps>) => styled(Component)`
       letter-spacing: -0.05em;
       min-width: 2rem;
       color: var(--color-darken);
-      display: flex;
       flex-direction: column;
-      gap: 3rem;
-      justify-content: flex-end;
-      align-items: flex-end;
+      gap: 2.4rem;
+
       span {
         writing-mode: vertical-lr;
         text-orientation: upright;
@@ -56,24 +54,26 @@ const style = (Component: FunctionComponent<SectionProps>) => styled(Component)`
       span:first-child {
         color: var(--color-accent);
         padding-bottom: 2px;
-        font-size: 1.2rem;
+        font-size: 1.4rem;
         line-height: 1.8rem;
         margin-bottom: 1.6rem;
-        margin-top: 3rem;
+        // margin-top: 2rem;
       }
 
       .type {
+        font-family: "Montserrat", sans-serif;
         font-size: 1.1rem;
         text-transform: capitalize;
-        margin-bottom: 0.6rem;
         margin-top: 0.6rem;
         color: var(--color-text);
       }
 
       span:not(.type, :first-child) {
         margin-bottom: 0.4rem;
-        color: var(--color-text);
-        font-size: 1rem;
+        color: var(--color-ligthen);
+        font-size: 1.4rem;
+
+        font-family: "Montserrat", sans-serif;
       }
     }
   }

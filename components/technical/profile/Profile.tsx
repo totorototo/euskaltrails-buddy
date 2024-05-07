@@ -4,7 +4,6 @@ import { TimedSection } from "@/types/types";
 import * as d3Array from "d3-array";
 import { createXScaleBand, createYScale } from "@/helpers/d3";
 import { ScaleBand, ScaleLinear } from "d3-scale";
-import { Gradient } from "../../index";
 import { smooth } from "@/helpers/smooth";
 import { EnhancedPosition } from "@/helpers/trackAnalyzer";
 import Section from "@/components/technical/profile/sections/Section";
@@ -75,29 +74,23 @@ const Profile: FunctionComponent<ProfileProps> = ({
 
   const [data, set] = useState<{ distance: string; elevation: number }[]>([]);
 
-  function computeDelay(index: number) {
-    //1- compute direction
-    const direction =
-      previousHighlightedSectionIndex >= highlightedSectionIndex;
+  function computeDelay(index: number): number {
+    const direction = highlightedSectionIndex - previousHighlightedSectionIndex;
+    const currentSection = timedSections[previousHighlightedSectionIndex];
 
-    const currentSection = timedSections[highlightedSectionIndex];
-    const lastSectionKm = Math.floor(currentSection.arrival.km);
-    const firstSectionKm = Math.floor(currentSection.departure.km);
-
-    // backward
-    if (direction === true) {
-      if (index > lastSectionKm) return 0;
-
-      const offset = data.length - lastSectionKm;
-      return (data.length - offset - index) * 50;
+    if (direction >= 0) {
+      const firstSectionKm = currentSection.departure.km * 1; //HACK: convert to number
+      if (index < firstSectionKm) {
+        return 0;
+      }
+      return (index - firstSectionKm) * 25;
     }
-    // forward
-    else {
-      if (index < firstSectionKm) return 0;
 
-      const offset = data.length - firstSectionKm;
-      return (index - offset) * 50;
+    const lastSectionKm = currentSection.arrival.km * 1; //HACK: convert to number
+    if (index > lastSectionKm) {
+      return 0;
     }
+    return (data.length - (data.length - lastSectionKm) - index) * 25;
   }
 
   const [springs] = useSprings(
@@ -215,19 +208,44 @@ const Profile: FunctionComponent<ProfileProps> = ({
           width={width * 3}
           viewBox={`0 0 ${width * 3} ${height * 0.4}`}
         >
-          <Gradient
-            from={"#a0dcfd"}
-            to={"#a0dcfd00"}
-            toOffset={"100%"}
-            id="gradient1"
-          />
+          <defs>
+            <pattern
+              id="a"
+              patternUnits="userSpaceOnUse"
+              width="29"
+              height="33.487"
+              patternTransform="scale(1) rotate(0)"
+            >
+              <rect
+                x="0"
+                y="0"
+                width="100%"
+                height="100%"
+                fill="var(--color-accent)"
+              />
+              <path
+                d="M29 20.928v14.813M14.5 12.56v16.745M29-2.559v6.744l-14.5 8.374L0 4.189v-6.745m29 6.742l14.5 8.37m0 16.745L29 20.928l-14.5 8.376L0 20.931l-14.5 8.376m0-16.744L0 4.189m0 31.487V20.931"
+                strokeWidth="3"
+                stroke="white"
+                fill="var(--color-accent)"
+              />
+            </pattern>
 
-          <Gradient
-            from={"#0E79B2"}
-            to={"#0E79B290"}
-            toOffset={"100%"}
-            id="gradient2"
-          />
+            <pattern
+              id="pattern"
+              patternUnits="userSpaceOnUse"
+              width="69.282"
+              height="40"
+            >
+              <rect width="69.282" height="40" fill="var(--color-text)"></rect>
+              <path
+                d="M0,0 l69.282,40 M-34.641,20 l69.282,40 M34.641,-20 l69.282,40"
+                stroke="var(--color-accent)"
+                stroke-width="1.5"
+                stroke-opacity="1"
+              ></path>
+            </pattern>
+          </defs>
           <g>
             {data &&
               scales &&
@@ -243,6 +261,31 @@ const Profile: FunctionComponent<ProfileProps> = ({
                     width={scales.x.bandwidth()}
                     stroke={"transparent"}
                     strokeWidth={0}
+                  />
+                );
+              })}
+          </g>
+
+          <g>
+            {scales &&
+              data &&
+              enhancedCheckpoints &&
+              enhancedCheckpoints.length &&
+              enhancedCheckpoints.map((checkpoint, index) => {
+                console.log(checkpoint);
+                const value = Math.floor(checkpoint.distance / 1000);
+                const item = data[value];
+                return (
+                  <rect
+                    key={index}
+                    opacity={0.6}
+                    fill="var(--color-darken)"
+                    stroke={"transparent"}
+                    strokeWidth={0}
+                    x={scales.x(item.distance)}
+                    y={scales.y(0)}
+                    height={scales.y(item.elevation)}
+                    width={scales.x.bandwidth()}
                   />
                 );
               })}
