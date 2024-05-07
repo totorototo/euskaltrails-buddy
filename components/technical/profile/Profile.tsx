@@ -272,7 +272,6 @@ const Profile: FunctionComponent<ProfileProps> = ({
               enhancedCheckpoints &&
               enhancedCheckpoints.length &&
               enhancedCheckpoints.map((checkpoint, index) => {
-                console.log(checkpoint);
                 const value = Math.floor(checkpoint.distance / 1000);
                 const item = data[value];
                 return (
