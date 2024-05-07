@@ -7,7 +7,6 @@ const style = (Component: FunctionComponent<SectionProps>) => styled(Component)`
   position: relative;
   scroll-snap-align: center;
   display: flex;
-  padding-top: 5rem;
 
   .detail {
     min-width: 100vw;
@@ -47,6 +46,7 @@ const style = (Component: FunctionComponent<SectionProps>) => styled(Component)`
       display: flex;
       height: 100%;
       width: 90%;
+      padding-top: 2rem;
 
       flex-direction: column;
       align-items: flex-start;
