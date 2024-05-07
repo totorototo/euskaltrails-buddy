@@ -241,8 +241,8 @@ const Profile: FunctionComponent<ProfileProps> = ({
               <path
                 d="M0,0 l69.282,40 M-34.641,20 l69.282,40 M34.641,-20 l69.282,40"
                 stroke="var(--color-accent)"
-                stroke-width="1.5"
-                stroke-opacity="1"
+                strokeWidth="1.5"
+                strokeOpacity="1"
               ></path>
             </pattern>
           </defs>

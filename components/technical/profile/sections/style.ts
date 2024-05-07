@@ -46,7 +46,7 @@ const style = (Component: FunctionComponent<SectionProps>) => styled(Component)`
       display: flex;
       height: 100%;
       width: 90%;
-      padding-top: 2rem;
+      align-self: flex-end;
 
       flex-direction: column;
       align-items: flex-start;
