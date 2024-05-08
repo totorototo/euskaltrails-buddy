@@ -74,9 +74,10 @@ const Profile: FunctionComponent<SectionProps> = ({
 
           <span>
             {format(
-              new Date(
-                `${section.closingDate.replace(/-/g, "/")} GMT+0200`,
-              ).toLocaleString("fr-FR", { timeZone: "Europe/Vienna" }),
+              new Date(section.closingDate.replace(/-/g, "/")).toLocaleString(
+                "fr-FR",
+                { timeZone: "Europe/Vienna" },
+              ),
               "dd-MM HH:mm",
             )}
           </span>
