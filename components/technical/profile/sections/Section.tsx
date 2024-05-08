@@ -1,9 +1,10 @@
+"use client";
+
 import { FunctionComponent, MutableRefObject, useEffect } from "react";
 import style from "./style";
 import { TimedSection } from "@/types/types";
 import { formatDuration, intervalToDuration, format } from "date-fns";
 import useIntersect from "@/components/hooks/useIntersect";
-import { ConditionallyRender } from "@/components";
 
 export type SectionProps = {
   className?: string;
@@ -72,17 +73,16 @@ const Profile: FunctionComponent<SectionProps> = ({
           </span>
 
           <span className={"type"}>time barrier</span>
-          <ConditionallyRender client>
-            <span>
-              {format(
-                new Date(section.closingDate.replace(/-/g, "/")).toLocaleString(
-                  "fr-FR",
-                  { timeZone: "Europe/Vienna" },
-                ),
-                "dd-MM HH:mm",
-              )}
-            </span>
-          </ConditionallyRender>
+
+          <span>
+            {format(
+              new Date(section.closingDate.replace(/-/g, "/")).toLocaleString(
+                "fr-FR",
+                { timeZone: "Europe/Vienna" },
+              ),
+              "dd-MM HH:mm",
+            )}
+          </span>
 
           <span className={"type"}>Max Comp Time</span>
           <span>{msToTime(section.elapsedTime)}</span>
