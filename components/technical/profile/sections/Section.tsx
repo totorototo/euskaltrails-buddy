@@ -38,6 +38,11 @@ const Profile: FunctionComponent<SectionProps> = ({
   });
 
   useEffect(() => {
+    const toto = localStorage.getItem("toto");
+    console.log(toto);
+  }, []);
+
+  useEffect(() => {
     if (!entry) return;
     if (entry.intersectionRatio > 0.8) setHighlightedSectionIndex(id);
   }, [entry, entry?.intersectionRatio, setHighlightedSectionIndex, id]);
@@ -76,10 +81,9 @@ const Profile: FunctionComponent<SectionProps> = ({
 
           <span>
             {format(
-              new Date(section.closingDate.replace(/-/g, "/")).toLocaleString(
-                "fr-FR",
-                { timeZone: "Europe/Vienna" },
-              ),
+              new Date(
+                `${section.closingDate.replace(/-/g, "/")} GMT+0200`,
+              ).toLocaleString("fr-FR", { timeZone: "Europe/Vienna" }),
               "dd-MM HH:mm",
             )}
           </span>
