@@ -1,5 +1,3 @@
-"use client";
-
 import { FunctionComponent, MutableRefObject, useEffect } from "react";
 import style from "./style";
 import { TimedSection } from "@/types/types";
