@@ -1,7 +1,8 @@
 import { FunctionComponent, MutableRefObject, useEffect } from "react";
 import style from "./style";
 import { TimedSection } from "@/types/types";
-import { formatDuration, intervalToDuration, format } from "date-fns";
+import { formatDuration, intervalToDuration } from "date-fns";
+import { format } from "date-fns-tz";
 import useIntersect from "@/components/hooks/useIntersect";
 
 export type SectionProps = {
@@ -74,11 +75,9 @@ const Profile: FunctionComponent<SectionProps> = ({
 
           <span>
             {format(
-              new Date(section.closingDate.replace(/-/g, "/")).toLocaleString(
-                "fr-FR",
-                { timeZone: "Europe/Vienna" },
-              ),
+              new Date(section.closingDate.replace(/-/g, "/")),
               "dd-MM HH:mm",
+              { timeZone: "Europe/Vienna" },
             )}
           </span>
 
