@@ -238,7 +238,7 @@ function computeSections({
 
 export async function getStaticProps() {
   const directory = path.join(process.cwd(), "./assets");
-  const filename = "euskaltrails-ultra-2024";
+  const filename = "euskaltrails-ultra-2025";
 
   // 1- retrieve waypoints from pgx file
   const geoJson = await getGeoJson({ directory, filename: `${filename}.gpx` });
