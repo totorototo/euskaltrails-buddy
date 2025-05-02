@@ -1,17 +1,17 @@
 location,label,km,kind,cutoffTime
-Baigorri,Départ,0.0,Départ,2025-05-30 05:00
+Baigorri,Départ,0.0,Départ,2025-05-30 03:00
 Jara,CP1,6.51,refueling,
 Gaztigarlepo,CP2,19.4,refueling,
-Col d’Ispeguy,CP3,31.29,refueling,2025-05-30 12:30
+Col d’Ispeguy,CP3,31.29,refueling,2025-05-30 10:30
 Auza,CP4,36.04,refueling,
-Les Aldudes,CP5,45.23,refueling,2025-05-30 16:30
+Les Aldudes,CP5,45.23,refueling,2025-05-30 14:30
 Urkiaga,CP6,59.37,refueling,
 Adi,CP7,62.94,refueling,
-Urepel,CP8,73.26,life base,2025-05-31 00:30
+Urepel,CP8,73.26,life base,2025-05-30 22:30
 Lindus,CP9,85.75,refueling,
-Ausai,CP10,88.93,refueling,2025-05-31 04:20
+Ausai,CP10,88.93,refueling,2025-05-31 01:30
 Ehuntzaroi,CP11,101.77,refueling,
-Banka,CP12,110.03,refueling,2025-05-31 10:35
+Banka,CP12,110.03,refueling,2025-05-31 07:30
 Col Ahartza,CP13,116.93,refueling,
 Mubhoa,CP14,121.31,refueling,
-Baigorri,Arrivée,130.06,refueling,2025-05-31 17:00
+Baigorri,Arrivée,130.06,refueling,2025-05-31 15:00
