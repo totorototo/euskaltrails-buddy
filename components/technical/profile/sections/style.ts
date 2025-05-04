@@ -28,8 +28,8 @@ const style = (Component: FunctionComponent<SectionProps>) => styled(Component)`
       overflow: hidden;
       display: flex;
       align-items: flex-end;
-      justify-content: flex-end;
-      font-size: 6rem;
+      justify-content: center;
+      font-size: 9.6rem;
       letter-spacing: -0.05em;
       min-width: 2rem;
       color: var(--color-darken);
@@ -37,8 +37,8 @@ const style = (Component: FunctionComponent<SectionProps>) => styled(Component)`
       gap: 2.4rem;
 
       span {
-        writing-mode: vertical-lr;
-        text-orientation: upright;
+        //writing-mode: vertical-lr;
+        //text-orientation: upright;
       }
     }
 
