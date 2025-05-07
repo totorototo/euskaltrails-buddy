@@ -35,7 +35,7 @@ const style = (Component: FunctionComponent<SectionProps>) => styled(Component)`
       color: var(--color-darken);
       flex-direction: column;
       gap: 2.4rem;
-      mix-blend-mode: color-dodge;
+      // mix-blend-mode: color-dodge;
 
       span {
         //writing-mode: vertical-lr;
