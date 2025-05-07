@@ -183,7 +183,7 @@ const Profile: FunctionComponent<ProfileProps> = ({
 
     const y = createYScale(
       { min: domain.y.min, max: domain.y.max },
-      { min: 0, max: height * 0.2 },
+      { min: 0, max: height * 0.3 },
     );
 
     setScales({ x, y });
@@ -202,11 +202,11 @@ const Profile: FunctionComponent<ProfileProps> = ({
           />
         ))}
       </div>
-      <div className={"svg-container"} style={{ width, height: height * 0.2 }}>
+      <div className={"svg-container"} style={{ width, height: height * 0.3 }}>
         <svg
-          height={height * 0.2}
+          height={height * 0.3}
           width={width * 3}
-          viewBox={`0 0 ${width * 3} ${height * 0.2}`}
+          viewBox={`0 0 ${width * 3} ${height * 0.3}`}
         >
           <defs>
             <pattern

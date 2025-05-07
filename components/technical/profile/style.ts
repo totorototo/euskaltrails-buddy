@@ -24,7 +24,7 @@ const style = (Component: FunctionComponent<ProfileProps>) => styled(Component)`
       display: none; /* Safari and Chrome */
     }
     position: absolute;
-    height: 80%;
+    height: 72%;
     bottom: 0;
     top: 0;
     width: 100vw;
