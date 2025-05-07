@@ -138,7 +138,7 @@ const Profile: FunctionComponent<ProfileProps> = ({
           min: 0,
           max: enhancedPositions[enhancedPositions.length - 1].distance,
         },
-        y: { min: 0, max: extentY[1] * 1.2 },
+        y: { min: 0, max: extentY[1] },
       });
     }
   }, [enhancedPositions]);
@@ -183,7 +183,7 @@ const Profile: FunctionComponent<ProfileProps> = ({
 
     const y = createYScale(
       { min: domain.y.min, max: domain.y.max },
-      { min: 0, max: height * 0.5 },
+      { min: 0, max: height * 0.4 },
     );
 
     setScales({ x, y });
